@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:zuunimelist/app/modules/models/anime_character_model.dart';
@@ -11,7 +12,9 @@ class AnimeDetailController extends GetxController {
   final animeCharacter = <AnimeCharacterModel>[].obs;
   final isLoading = true.obs;
   final errorMessage = "".obs;
-  final _cahce = <int, AnimeDetailModel>{};
+
+
+  final _cache = <int, Map<String, dynamic>>{};
 
   @override
   void onInit() {
@@ -22,8 +25,11 @@ class AnimeDetailController extends GetxController {
 
   Future<void> loadAnimeDetail(int id) async {
     if (animeDetail.value != null && animeCharacter.isNotEmpty) return;
-    if (_cahce.containsKey(id)) {
-      animeDetail.value = _cahce[id];
+    if (_cache.containsKey(id)) {
+      final cached = _cache[id]!;
+      animeDetail.value = cached["detail"];
+      animeCharacter.assignAll(cached["characters"]);
+      debugPrint("[CACHE] Loaded anime detail & characters from cache (ID: $id)");
       return;
     }
     try {
@@ -33,6 +39,14 @@ class AnimeDetailController extends GetxController {
       animeCharacter.clear();
 
       await Future.wait([fetchAnimeDetail(id), fetchAnimeCharacter(id)]);
+
+      if(animeDetail.value != null && animeCharacter.isNotEmpty) {
+        _cache[id] = {
+          "detail": animeDetail.value,
+          "character": List<AnimeCharacterModel>.from(animeCharacter),
+        };
+        debugPrint("[CACHE] Saved anime detail & characters to cache (ID: $id)");
+      }
     } catch (e) {
       errorMessage.value = e.toString();
     } finally {
@@ -46,8 +60,7 @@ class AnimeDetailController extends GetxController {
       final animeDetailData = jsonDecode(response.body);
       final detail = AnimeDetailModel.fromJson(animeDetailData["data"]);
       animeDetail.value = detail;
-      _cahce[id] = detail;
-      print("Trailer data: ${animeDetailData["data"]["trailer"]}");
+      debugPrint("Trailer data: ${animeDetailData["data"]["trailer"]}");
     } else {
       throw Exception("Failed to load anime detail (${response.statusCode})");
     }

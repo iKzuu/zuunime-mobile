@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zuunimelist/app/modules/controllers/anime_detail_controller.dart';
 import 'package:zuunimelist/app/modules/models/anime_detail_model.dart';
 import 'package:zuunimelist/components/anime/detail/sections/anime_additional_info_section.dart';
+import 'package:zuunimelist/components/anime/detail/sections/anime_characters_and_seiyuu_section.dart';
 // import 'package:zuunimelist/components/anime_detail_components/background.dart';
 import 'package:zuunimelist/components/anime/detail/sections/anime_cover_section.dart';
 import 'package:zuunimelist/components/anime/detail/sections/anime_header_section.dart';
@@ -16,6 +18,8 @@ class AnimeDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AnimeDetailController controller = Get.find();
+
     return Stack(
       children: [
         // background
@@ -51,6 +55,27 @@ class AnimeDetailContent extends StatelessWidget {
 
                     // anime additional info section
                     AnimeAdditionalInfoSection(anime: anime),
+
+                    // anime characters and seiyuu section (reactive character section)
+                    Obx(() {
+                      final characters = controller.animeCharacter;
+                      debugPrint(
+                        '[AnimeDetailContent] Obx triggered -> characters count: ${characters.length}',
+                      );
+                      if (characters.isEmpty) {
+                        return const SizedBox(
+                          height: 280,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF4EAAFF),
+                            ),
+                          ),
+                        );
+                      }
+                      return AnimeCharactersAndSeiyuuSection(
+                        character: characters,
+                      );
+                    }),
                   ],
                 ),
               ),
