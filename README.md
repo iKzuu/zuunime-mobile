@@ -1,4 +1,4 @@
-# zuunimelist
+# zuunimeinfo
 
 zuuanimeinfo is an Android application for viewing information about anime or manga that uses the API from [Jikan API](https://docs.api.jikan.moe/)
 
