@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:zuunimelist/app/modules/models/anime_character_model.dart';
 import 'package:zuunimelist/app/modules/models/anime_detail_model.dart';
 
 class AnimeDetailController extends GetxController {
-  final String baseUrl = "https://api.jikan.moe/v4";
+  final baseUrl = dotenv.env['API_BASE_URL'];
   final animeDetail = Rxn<AnimeDetailModel>();
   final animeCharacter = <AnimeCharacterModel>[].obs;
   final isLoading = true.obs;

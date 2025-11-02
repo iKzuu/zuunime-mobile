@@ -1,10 +1,11 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:zuunimelist/app/modules/models/anime_model.dart';
 
 class AnimeController extends GetxController {
-  final String baseUrl = "https://api.jikan.moe/v4";
+  final baseUrl = dotenv.env['API_BASE_URL'];
   var topAnimeList = <Anime>[].obs;
   var recommendationList = <Anime>[].obs;
   var upcomingAnimeList = <Anime>[].obs;
