@@ -1,6 +1,6 @@
 # zuunimelist
 
-A new Flutter project.
+zuuanimeinfo is an Android application for viewing information about anime or manga that uses the API from https://docs.api.jikan.moe/
 
 ## Getting Started
 
