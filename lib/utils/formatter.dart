@@ -17,7 +17,7 @@ String formatDecimal(num? number, {int fractionDigits = 2}) {
 }
 
 String formatDate(DateTime? date) {
-  if(date == null) return "-";
-  final formatter = DateFormat("MMMM d, yyyy");
+  if (date == null) return "-";
+  final formatter = DateFormat("MMM d, yyyy");
   return formatter.format(date);
 }
