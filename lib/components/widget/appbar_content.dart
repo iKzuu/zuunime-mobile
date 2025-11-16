@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:zuunimelist/components/widget/searchbar.dart';
 
 class AppbarContent extends StatelessWidget {
-  const AppbarContent({super.key});
+  final void Function()? onSearchTap;
+  final void Function(String)? onChanged;
+  final FocusNode focusNode;
+  final bool isSearchOpen;
+  const AppbarContent({
+    super.key,
+    required this.onSearchTap,
+    required this.focusNode,
+    required this.isSearchOpen,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +47,12 @@ class AppbarContent extends StatelessWidget {
             ),
           ),
 
-          Searchbar(),
+          Searchbar(
+            onChanged: onChanged,
+            onSearchTap: onSearchTap,
+            isSearchOpen: isSearchOpen,
+            focusNode: focusNode,
+          ),
         ],
       ),
     );

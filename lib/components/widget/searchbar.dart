@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Searchbar extends StatelessWidget {
-  const Searchbar({super.key});
+  final void Function(String)? onChanged;
+  final void Function()? onSearchTap;
+  final FocusNode focusNode;
+  final bool isSearchOpen;
+  const Searchbar({
+    super.key,
+    required this.onSearchTap,
+    required this.focusNode,
+    required this.isSearchOpen,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +24,10 @@ class Searchbar extends StatelessWidget {
         width: width,
         height: 40,
         child: TextField(
+          onTap: onSearchTap,
+          onChanged: onChanged,
+          focusNode: focusNode,
+          readOnly: !isSearchOpen,
           cursorColor: Color(0xFFF544CF),
           cursorHeight: 20,
           decoration: InputDecoration(
