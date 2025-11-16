@@ -16,7 +16,7 @@ class ZuuNimeList extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: "Poppins"),
-      initialRoute: Routes.HOME,
+      initialRoute: Routes.WIDGET_WRAPPER,
       getPages: AppPages.routes,
     );
   }

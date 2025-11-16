@@ -94,18 +94,20 @@ class AnimeController extends GetxController {
 
         for (var item in animeData) {
           if (hasEntryField && item["entry"] != null) {
-            if (item["entry"] is List) { // if the entry is an list
+            if (item["entry"] is List) {
+              // if the entry is an list
               parsedList.addAll(
                 (item["entry"] as List).map((e) => Anime.fromJson(e)).toList(),
               );
-            } else if (item["entry"] is Map<String, dynamic>) { // if the entry is an object
+            } else if (item["entry"] is Map<String, dynamic>) {
+              // if the entry is an object
               parsedList.add(Anime.fromJson(item["entry"]));
             }
           } else {
             parsedList.add(Anime.fromJson(item));
           }
         }
-        
+
         targetList.value = parsedList;
       } else {
         if (targetList.isEmpty) {
