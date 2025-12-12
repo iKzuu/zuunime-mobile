@@ -37,15 +37,20 @@ class SearchView extends StatelessWidget {
           itemCount: controller.searchAnimeList.length,
           itemBuilder: (context, index) {
             final anime = controller.searchAnimeList[index];
-            return ListTile(
-              title: Text(
-                anime.title,
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontWeight: FontWeight.bold,
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed("/anime-detail", arguments: anime.malId);
+              },
+              child: ListTile(
+                title: Text(
+                  anime.title,
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                subtitle: Text(anime.type ?? ""),
               ),
-              subtitle: Text(anime.type ?? ""),
             );
           },
         );
