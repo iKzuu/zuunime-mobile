@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:zuunimelist/app/modules/models/anime_character_model.dart';
+import 'package:zuunimelist/app/modules/models/anime_detail_model.dart';
 import 'package:zuunimelist/components/anime/detail/components/characters_and_seiyuu.dart';
+import 'package:get/get.dart';
 
 class AnimeCharactersAndSeiyuuSection extends StatelessWidget {
   final List<AnimeCharacterModel>? character;
+  final AnimeDetailModel anime;
   final int maxDisplayedCharacter;
   const AnimeCharactersAndSeiyuuSection({
     super.key,
     required this.character,
+    required this.anime,
     this.maxDisplayedCharacter = 8,
   });
 
@@ -38,7 +42,9 @@ class AnimeCharactersAndSeiyuuSection extends StatelessWidget {
             ),
 
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed("/all-characters-va", arguments: anime.malId);
+              },
               child: Text(
                 "See all",
                 style: TextStyle(
