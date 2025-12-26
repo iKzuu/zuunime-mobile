@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zuunimelist/app/modules/controllers/anime_search_controller.dart';
+import 'package:zuunimelist/components/anime/search/components/search_item.dart';
 
 class SearchView extends StatelessWidget {
   final AnimeSearchController controller = Get.find();
@@ -41,16 +42,7 @@ class SearchView extends StatelessWidget {
               onTap: () {
                 Get.toNamed("/anime-detail", arguments: anime.malId);
               },
-              child: ListTile(
-                title: Text(
-                  anime.title,
-                  style: TextStyle(
-                    color: Colors.amber,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                subtitle: Text(anime.type ?? ""),
-              ),
+              child: SearchItem(anime: anime),
             );
           },
         );
