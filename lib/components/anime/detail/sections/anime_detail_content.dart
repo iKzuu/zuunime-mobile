@@ -74,6 +74,7 @@ class AnimeDetailContent extends StatelessWidget {
                       }
                       return AnimeCharactersAndSeiyuuSection(
                         character: characters,
+                        anime: anime,
                       );
                     }),
                   ],
