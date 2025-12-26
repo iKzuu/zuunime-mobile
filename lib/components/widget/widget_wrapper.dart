@@ -47,7 +47,7 @@ class WidgetWrapper extends StatelessWidget {
 
                 Offstage(
                   offstage: !isSearchOpen,
-                  child: Positioned.fill(child: SearchView()),
+                  child: SearchView(),
                 ),
               ],
             ),
